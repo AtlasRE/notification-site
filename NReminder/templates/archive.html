@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>归档</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+    <!--navbar here-->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">教务处通知查询</a>
+        </div>
+        <!--leftNav-->
+        <div class="collapse navbar-collapse" id="navbar-menu">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="{% url 'archive' %}">归档</a></li>
+        </ul>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="查询通知...">
+          </div>
+          <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+        </div>
+      </div>
+    </nav>
+    <!--endNav-->
+    <div class="container contentpage">
+      {% for date in datelist %}
+        <h3>{{ date }}</h3>
+        <hr>
+        {% for file in filelist %}
+          {% if date in file.date %}
+          <h4><a href="{% url 'article' file.id %}" class="homehref">{{ file.title }}</a></h4>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+
+    <footer class="navbar navbar-static-bottom navbar-inverse footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="footer-links">
+              <li class="footer-title">链接</li>
+              <li><a class="foothref" href="https://github.com/atlasre" target="_blank">GitHub 仓库</a></li>
+              <li><a class="foothref" href="http://jwc.bit.edu.cn/tzgg" target="_blank">BIT教务处</a></li>
+            </ul>
+          </div>
+          <div class="col-md-8">
+            <p class="footer-title">关于本站</p>
+            <p class="footer-s">由<a class="foothref" href="https://github.com/atlasre" target="_blank">@Weiming Ren</a>搭建与开发 </p>
+            <p class="footer-s">字体图标由<a class="foothref" href="http://glyphicons.com" target="_blank">Glyphicons Halflings</a>提供 </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    {% load static %}
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/scrolltrans.js' %}"></script>
+ </body>
+</html>
